@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "baby-content": "../../components/babyChoice/baby/index",
+    "class-content": "../../components/babyChoice/classify/index"
+  }
+}

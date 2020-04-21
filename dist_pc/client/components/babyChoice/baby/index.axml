@@ -1,0 +1,85 @@
+<block a:if="{{$taroCompReady}}">
+    <view class="baby-content">
+        <block a:if="{{errTxt.length > 0}}">
+            <view class="hint">
+                <view class="iconfont err"></view>
+                <view class="errTxt">{{errTxt}}</view>
+            </view>
+        </block>
+        <view class="select-box">
+            <view class="select1">
+                <select className="select" onChange="changeStatus" onToggleHighlightItem="onToggleHighlightItem" defaultValue="出售中" showSearch="{{true}}" hasClear="{{true}}">
+                    <option value="出售中">出售中</option>
+                    <option value="仓库中">仓库中</option>
+                    <option value="已售完">已售完</option>
+                </select>
+            </view>
+            <view class="select2">
+                <select className="select" defaultValue="全部分类" onChange="changeClasstify">
+                    <option value="{{item.value}}" a:key="value" a:for="{{classList}}" a:for-item="item" a:for-index="_anonIdx2">{{item.label}}</option>
+                </select>
+            </view>
+            <view class="select3">
+                <select className="select" defaultValue="宝贝关键词" onChange="changeWord">
+                    <option value="宝贝关键词">宝贝关键词</option>
+                    <option value="商家编码">商家编码</option>
+                </select>
+                <view class="input-box">
+                    <view class="iconfont icno"></view>
+                    <input class="input" placeholder="请输入搜索内容" value="{{keywords}}" onChange="valueChange" />
+                </view>
+            </view>
+            <view class="btu-search">
+                <button class="btu" onTap="serach">搜索</button>
+            </view>
+        </view>
+        <view class="babyList">
+            <view class="muen">
+                <checkbox className="cheack-all" id="all" onChange="checkAll" values="123" checked="{{checkAll}}">全选</checkbox>
+                <view class="name">宝贝信息</view>
+                <view class="price">价格</view>
+                <view class="inventory">
+                    <view class="txt">库存</view>
+                    <view class="oper">
+                        <view class="{{'iconfont icno-up ' + (order_by === 'num:asc' ? 'action' : '')}}" onTap="orderBy" data-e-onTap-so="this" data-e-onTap-a-a="num:asc"></view>
+                        <view class="{{'iconfont icno-down ' + (order_by === 'num:desc' ? 'action' : '')}}" onTap="orderBy" data-e-onTap-so="this" data-e-onTap-a-a="num:desc"></view>
+                    </view>
+                </view>
+                <view class="sales">
+                    <view class="txt">销量</view>
+                    <view class="oper">
+                        <view class="{{'iconfont icno-up ' + (order_by === 'sold_quantity:asc' ? 'action' : '')}}" onTap="orderBy" data-e-onTap-so="this" data-e-onTap-a-a="sold_quantity:asc"></view>
+                        <view class="{{'iconfont icno-down ' + (order_by === 'sold_quantity:desc' ? 'action' : '')}}" onTap="orderBy" data-e-onTap-so="this" data-e-onTap-a-a="sold_quantity:desc"></view>
+                    </view>
+                </view>
+            </view>
+            <view class="content">
+                <block a:if="{{list.length == 0}}">
+                    <view class="empty">
+                        <view class="imgBlock"></view>
+                        <view class="txt">未找到符合条件的宝贝</view>
+                    </view>
+                </block>
+                <block a:if="{{list.length > 0}}">
+                    <checkbox className="baby-info" a:key="num_iid" onChange="changeChecked" id="{{item.num_iid}}" checked="{{item.checked}}" data-index="{{index}}" a:for="{{list}}" a:for-item="item" a:for-index="index">
+                        <image src="{{item.pic_url}}" className="img"></image>
+                        <view class="name">{{item.title}}</view>
+                        <view class="price">¥{{item.price}}</view>
+                        <view class="inventory">{{item.num}}</view>
+                        <view class="sales">{{item.sold_quantity}}</view>
+                    </checkbox>
+                </block>
+            </view>
+        </view>
+        <block a:if="{{list.length > 0}}">
+            <view class="page-box">
+                <view class="page">
+                    <my-pagination compid="{{$compid__125}}"></my-pagination>
+                </view>
+                <view class="btu-box">
+                    <button class="btu-sub" onTap="submit">确定（{{cheackList.length}}/{{total_results}}）</button>
+                </view>
+            </view>
+        </block>
+    </view>
+</block>
